@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CRUD Operation</title>
+<style>
+   body {
+    font-family: Arial, sans-serif;
+    background-color: #f4f4f4;
+    margin: 0;
+    padding: 0;
+}
+
+.container {
+    width: 80%;
+    margin: 50px auto;
+    background: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+h1 {
+    text-align: center;
+    color: #333;
+}
+
+form {
+    display: flex;
+    justify-content: space-between;
+    margin-bottom: 20px;
+}
+
+form input {
+    width: 30%;
+    padding: 10px;
+    border: 1px solid #ddd;
+    border-radius: 4px;
+}
+
+form button {
+    padding: 10px 20px;
+    border: none;
+    background-color: #28a745;
+    color: white;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+form button:hover {
+    background-color: #218838;
+}
+
+table {
+    width: 100%;
+    border-collapse: collapse;
+}
+
+table, th, td {
+    border: 1px solid #ddd;
+}
+
+th, td {
+    padding: 12px;
+    text-align: left;
+}
+
+th {
+    background-color: #f4f4f4;
+}
+
+.actions button {
+    padding: 5px 10px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+}
+
+.actions .edit {
+    background-color: #ffc107;
+    color: white;
+}
+
+.actions .delete {
+    background-color: #dc3545;
+    color: white;
+}
+
+.actions .edit:hover {
+    background-color: #e0a800;
+}
+
+.actions .delete:hover {
+    background-color: #c82333;
+}
+
+</style>
+</head>
+<body>
+    <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RESULT</title>
+</head>
+<body>
+    <div class="container">
+        <h1>RESULT UPLOAD</h1>
+        <form id="subjectForm">
+            <input type="text" id="name" placeholder="Name" required>
+            <input type="text" id="subject" placeholder="Subject" required>
+            <input type="text" id="grade" placeholder="Grade" required>
+            <button type="submit">Add</button>
+        </form>
+        <table id="subjectsTable">
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Subject</th>
+                    <th>Grade</th>
+                    <th>Actions</th>
+                </tr>
+            </thead>
+            <tbody>
+                <!-- Dynamic content will be inserted here -->
+            </tbody>
+        </table>
+    </div>
+    <script src="script.js"></script>
+</body>
+</html>
+
+    <script>
+document.getElementById('subjectForm').addEventListener('submit', addSubject);
+
+function addSubject(e) {
+    e.preventDefault();
+
+    let name = document.getElementById('name').value;
+    let subject = document.getElementById('subject').value;
+    let grade = document.getElementById('grade').value;
+
+    let table = document.getElementById('subjectsTable').getElementsByTagName('tbody')[0];
+    let newRow = table.insertRow();
+
+    let cell1 = newRow.insertCell(0);
+    let cell2 = newRow.insertCell(1);
+    let cell3 = newRow.insertCell(2);
+    let cell4 = newRow.insertCell(3);
+
+    cell1.innerHTML = name;
+    cell2.innerHTML = subject;
+    cell3.innerHTML = grade;
+    cell4.innerHTML = `
+        <div class="actions">
+            <button class="edit" onclick="editSubject(this)">Edit</button>
+            <button class="delete" onclick="deleteSubject(this)">Delete</button>
+        </div>
+    `;
+
+    document.getElementById('subjectForm').reset();
+}
+
+function editSubject(button) {
+    let row = button.parentNode.parentNode.parentNode;
+    let name = row.cells[0].innerHTML;
+    let subject = row.cells[1].innerHTML;
+    let grade = row.cells[2].innerHTML;
+
+    document.getElementById('name').value = name;
+    document.getElementById('subject').value = subject;
+    document.getElementById('grade').value = grade;
+
+    row.parentNode.removeChild(row);
+}
+
+function deleteSubject(button) {
+    let row = button.parentNode.parentNode.parentNode;
+    row.parentNode.removeChild(row);
+}
+
+
+
+
+    </script>
+</body>
+</html>
